@@ -27,7 +27,7 @@ public:
         _queue.push(data);
 
         // 有数据，直接唤醒消费者变量
-        _con_c.notify_one();
+        _con_c.notify_all();
     }
 
     void get(T& data)
@@ -42,7 +42,7 @@ public:
         data = _queue.front();
         _queue.pop();
         // 取出数据后唤醒prod线程
-        _con_p.notify_one();
+        _con_p.notify_all();
     }
 
     bool full()
